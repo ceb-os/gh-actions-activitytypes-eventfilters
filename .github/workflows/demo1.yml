@@ -1,8 +1,17 @@
 name: Events Demo 1
+# workflows can be triggered on opened pull requests, manually and when a push is done towards
+# one of the mentioned branches AND a file within the path .github/workflows/* hasn't been modified
 on:
   pull_request: 
     types: [opened]
   workflow_dispatch:
+  push:
+    branches:
+      - master # when pushing to master branch workflow is triggered
+      - 'dev-*' # dev-new dev-this-is-new 
+      - 'feat/**' # feat/new feat/new/button (it accepts multiple slashes)
+    paths-ignore:
+      - ".github/workflows/*"
 jobs:
   deploy:
     runs-on: ubuntu-latest
